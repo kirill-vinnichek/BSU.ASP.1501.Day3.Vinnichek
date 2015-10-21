@@ -20,8 +20,8 @@ namespace Task1.Polynomial
         {
             if (!(odds == null))
             {
-                _odds = new double[odds.Length];
-                ReduceOdd(ref _odds);
+                this._odds = new double[odds.Length];
+                ReduceOdd(ref odds);
                 odds.CopyTo(_odds, 0);
                 Degree = odds.Length;
             }
@@ -31,8 +31,8 @@ namespace Task1.Polynomial
         {
             if (!(odds == null))
             {
-                ReduceOdd(ref _odds);
-                _odds = odds;
+                ReduceOdd(ref odds);
+                this._odds = odds;
                 Degree = odds.Length;
             }
         }
