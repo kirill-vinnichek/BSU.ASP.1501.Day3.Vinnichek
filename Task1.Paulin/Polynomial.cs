@@ -27,6 +27,15 @@ namespace Task1.Polynomial
             }
         }
 
+        private Polynomial(ref double[] odds)
+        {
+            if (!(odds == null))
+            {
+                ReduceOdd(ref _odds);
+                _odds = odds;
+                Degree = odds.Length;
+            }
+        }
         //public Polynomial(params double[] a)
         //{
         //    _odds = a;
@@ -48,7 +57,7 @@ namespace Task1.Polynomial
                 a._odds.CopyTo(temp, 0);
                 for (int i = 0; i < b._odds.Length; i++)
                     temp[i] -= b[i];
-                return new Polynomial(temp);
+                return new Polynomial(ref temp);
 
             }
             else
@@ -58,8 +67,7 @@ namespace Task1.Polynomial
                     temp[i] = (-1) * b[i];
                  for (int i = 0; i < a._odds.Length; i++)
                      temp[i] +=a[i];
-                 ReduceOdd(ref temp);
-                return new Polynomial(temp);
+                return new Polynomial(ref temp);
 
             }
         }
@@ -83,8 +91,7 @@ namespace Task1.Polynomial
 
             for (int i=0;i<min._odds.Length;i++)
                  temp[i] += min[i];
-            ReduceOdd(ref temp);
-                return new Polynomial(temp);
+            return new Polynomial(ref temp);
 
         }
 
@@ -104,8 +111,7 @@ namespace Task1.Polynomial
                 {
                     temp[i + j] += a[i] * b[j];
                 }
-            ReduceOdd(ref temp);
-            return new Polynomial(temp);
+            return new Polynomial(ref temp);
 
         }
 
