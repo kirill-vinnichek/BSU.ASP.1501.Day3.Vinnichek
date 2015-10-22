@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1.Polynomial
+namespace Task1
 {
     public class Polynomial
     {
-        private double[] _odds;
+        private readonly double[] _odds;
         public double this[int i]
         {
             get { return _odds[i]; }
@@ -16,30 +16,44 @@ namespace Task1.Polynomial
 
         public int Degree { get; private set; }
 
-        public Polynomial(double[] odds)
+        public Polynomial(params double[] odds)
         {
-            if (!(odds == null))
+            if (odds == null)
+                throw new ArgumentNullException("Argument can not be null");
+            if (odds.Length == 0)
+            {
+                this._odds = new double[] { 0 };
+            }
+            else
             {
                 this._odds = new double[odds.Length];
                 ReduceOdd(ref odds);
                 odds.CopyTo(_odds, 0);
-                Degree = odds.Length;
             }
+
+                Degree = odds.Length - 1;
+            
+
+           
         }
 
         private Polynomial(ref double[] odds)
         {
-            if (!(odds == null))
+            if (odds == null)
+                throw new ArgumentNullException("Argument can not be null");
+            if (odds.Length == 0)
+            {
+                this._odds = new double[] { 0 };
+            }
             {
                 ReduceOdd(ref odds);
                 this._odds = odds;
-                Degree = odds.Length;
             }
+
+            Degree = odds.Length - 1;
+
         }
-        //public Polynomial(params double[] a)
-        //{
-        //    _odds = a;
-        //}
+
 
 
         public static Polynomial Substract(Polynomial a, Polynomial b)
@@ -120,6 +134,9 @@ namespace Task1.Polynomial
 
         public static bool operator ==(Polynomial a,Polynomial b)
         {
+            if (object.ReferenceEquals(a, b))
+                return true;
+
             if (((object)a == null) || ((object)b == null))
             {
                 return false;
@@ -135,9 +152,10 @@ namespace Task1.Polynomial
         }
 
 
-        //TODO: Посидеть ещё с Equals
+    
         public bool Equals(Polynomial p)
         {
+            
             if ((object)p == null)
                 return false;
 
@@ -154,7 +172,13 @@ namespace Task1.Polynomial
 
         }
 
-        //Зачем??
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Polynomial))
+                return false;
+            return Equals((Polynomial)obj);
+        }
+      
         private static void ReduceOdd(ref double[] ar)
         {
             int length = ar.Length;
@@ -166,12 +190,6 @@ namespace Task1.Polynomial
         }
 
 
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Polynomial))
-                return false;
-            return Equals((Polynomial)obj);
-        }
 
         public override int GetHashCode()
         {
@@ -181,10 +199,16 @@ namespace Task1.Polynomial
         public override string ToString()
         {
             var sb = new StringBuilder();
-            for (int i = _odds.Length - 1; i >= 0;i--)
+            for (int i = Degree; i > 0;i--)
             {
-                sb.Append((_odds[i]<0 ? "":"+") + String.Format("{0}*X^{1}",_odds[i],i)  );
+                if (this[i] == 0)
+                    continue;
+                if (i == Degree)
+                    sb.Append(String.Format("{0}*X^{1}", _odds[i], i));
+                else
+                sb.Append((_odds[i]<0 ? "":" + ") + String.Format("{0}*X^{1}",_odds[i],i)  );
             }
+            sb.Append(String.Format(" + {0}",this[0]));
             return sb.ToString();
         }
 

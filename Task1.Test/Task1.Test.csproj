@@ -59,6 +59,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task1.Paulin\Task1.Polynomial.csproj">
+      <Project>{7cc92a2f-b3fb-4063-94af-6d62200035b5}</Project>
+      <Name>Task1.Polynomial</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
