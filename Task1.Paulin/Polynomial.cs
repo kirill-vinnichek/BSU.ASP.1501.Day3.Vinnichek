@@ -26,12 +26,12 @@ namespace Task1
             }
             else
             {
-                this._odds = new double[odds.Length];
                 ReduceOdd(ref odds);
+                this._odds = new double[odds.Length];
                 odds.CopyTo(_odds, 0);
             }
 
-                Degree = odds.Length - 1;
+                Degree = _odds.Length - 1;
             
 
            
@@ -50,7 +50,7 @@ namespace Task1
                 this._odds = odds;
             }
 
-            Degree = odds.Length - 1;
+            Degree = _odds.Length - 1;
 
         }
 
@@ -184,8 +184,7 @@ namespace Task1
             int length = ar.Length;
             while (length != 0 && ar[length - 1] == 0)
                 length--;
-            var temp_arr = new double[length];
-            for (int i = 0; i < length; i++)
+           // var temp_arr = new double[length];
                 Array.Resize(ref ar, length);
         }
 

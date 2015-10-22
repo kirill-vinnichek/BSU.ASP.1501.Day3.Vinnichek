@@ -47,6 +47,7 @@ namespace Task1.Test{
             get
             {
                 yield return new TestCaseData(new Polynomial(1, 2, 3), new Polynomial(0, 2, 1)).Returns(new Polynomial(1, 4, 4));
+                yield return new TestCaseData(new Polynomial(1, -2, -3), new Polynomial(0, 2, 3)).Returns(new Polynomial(1,0,0));
             }
         }
         [Test, TestCaseSource(@"DataForAddTest")]
